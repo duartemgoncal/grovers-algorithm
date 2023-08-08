@@ -1,6 +1,5 @@
 from qiskit import QuantumCircuit
 import numpy as np
-import qiskit.quantum_info as qi
 # define oracle circuit
 def oracle(lucky_number):
     # determine number of bits to represent lucky_number
@@ -8,8 +7,8 @@ def oracle(lucky_number):
     bits = len(lucky_bin)
     if bits > 7:
         raise ValueError('We are restricted to 7 bits or fewer for this challenge.')
-    oracle = QuantumCircuit(bits, name='oracle')
-    U = np.identity(2**bits)
-    U[lucky_number,lucky_number] = -1
-    oracle.unitary(U, range(bits),  label='oracle')
+    oracle = QuantumCircuit(bits, name='Oracle')
+    O = np.identity(2**bits)
+    O[lucky_number,lucky_number] = -1
+    oracle.unitary(O, range(bits),  label='Oracle')
     return oracle.to_gate()
