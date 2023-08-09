@@ -5,7 +5,7 @@
 <div align='center'>
 <img src="https://static.wikia.nocookie.net/muppet/images/e/e9/Grover2.jpg/revision/latest?cb=20190610143055" alt="drawing" width="500"/>
 </div>
-<h4 align="center">Implementation of a general Grover's Algorithm for quamtum searching.</h4>
+<h4 align="center">Implementation of a general Grover's Algorithm for quamtum searching</h4>
 
 <p align="center">
   <a href="#about">About</a> •
@@ -16,7 +16,8 @@
 
 ## About
 
-This is a general implementation of Grover's Algorithm for quantum searching. It is based on the paper [Grover's Algorithm for Quantum Searching](https://arxiv.org/pdf/quant-ph/9605043.pdf) by Lov K. Grover.
+This is a general implementation of Grover's Algorithm for quantum searching. It is based on the paper [Grover's Algorithm for Quantum Searching](https://arxiv.org/pdf/quant-ph/9605043.pdf) by Lov K. Grover. \
+The algorithm is implemented in Python using the [Qiskit](https://qiskit.org/) framework.
 
 
 ## Installation
@@ -39,7 +40,7 @@ The algorithm is implemented as a class, which is initialized with the following
 
 - `number_list`: A list of numbers to be searched
 - `cycles`: The number of Grover cycles to be run
-- `restrict`: A boolean value that indicates if the algorithm should restrict the search to 7 bits or less. If `restrict` is `False`, the algorithm will search for any number in the list, regardless of its size.
+- `restrict`: A boolean value that indicates if the algorithm should restrict the search to 7 qubits or less (this is due to the limit of qubits that the systems that the open plan at [IBMQ](https://quantum-computing.ibm.com/) offer). If `restrict` is `False`, the algorithm will search for any number in the list, regardless of its size.
 
 
 ## License

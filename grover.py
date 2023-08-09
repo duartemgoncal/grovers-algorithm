@@ -82,6 +82,6 @@ class GroverCircuit(QuantumCircuit):
             QuantumCircuit: The reflection circuit (also known as the diffusion operator)
         """
         reflection = QuantumCircuit(self.n_qubits, name='reflection')
-        u_s = 2*np.outer(Statevector(self),Statevector(self)) - np.identity(2**self.n_qubits)
+        u_s = 2*np.outer(Statevector(self),np.conj(Statevector(self))) - np.identity(2**self.n_qubits)
         reflection.unitary(u_s, range(self.n_qubits), label='reflection')
         return reflection
