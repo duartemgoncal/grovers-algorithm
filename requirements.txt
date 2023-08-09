@@ -1,0 +1,4 @@
+numpy==1.23.5
+qiskit==0.44.0
+qiskit_ibm_provider==0.6.3
+qiskit_terra==0.25.0
