@@ -34,7 +34,7 @@ To install the algorithm, clone the repository and install the dependencies:
 
 ## Usage
 
-The algorithm is implemented in the file `grover.py`. The file `main.ipynb`(soon) contains an example of how to use the algorithm.
+The algorithm is implemented in the file `grover.py`. The file `main.ipynb` contains an example of how to use the algorithm.
 
 The algorithm is implemented as a class, which is initialized with the following parameters:
 
