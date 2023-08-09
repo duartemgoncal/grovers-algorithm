@@ -42,6 +42,8 @@ The algorithm is implemented as a class, which is initialized with the following
 - `cycles`: The number of Grover cycles to be run
 - `restrict`: A boolean value that indicates if the algorithm should restrict the search to 7 qubits or less (this is due to the limit of qubits that the systems that the open plan at [IBMQ](https://quantum-computing.ibm.com/) offer). If `restrict` is `False`, the algorithm will search for any number in the list, regardless of its size.
 
+#### Disclaimer
+When Running the algorithm on a real quantum computer, the results, more probably then not, will not be as expected. This is because there is too much noise on real quantum computers
 
 ## License
 
