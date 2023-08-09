@@ -1,20 +1,31 @@
+"""Grover's algorithm module
+
+Author:
+     Duarte Goncalves
+
+Date:
+    2023-08-09
+"""
+
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector
 import numpy as np
 
-class Grover_Circuit(QuantumCircuit):
+class GroverCircuit(QuantumCircuit):
     """The grover circuit class for the Grover's algorithm
 
     Inheritence:
         QuantumCircuit : The QuantumCircuit class from qiskit
     """
-    def __init__(self, number_list: list, cycles:int = 1):
+    def __init__(self, number_list: list, cycles:int = 1, restrict = True):
         """__init__ method for Grover's algorithm
 
         Args:
             number_list (list): The list of numbers the circuit should return with high probability
             cycles (int, optional): Number of Grover cycles (U_s*U_omega). Defaults to 1.
+            restriction (bool, optional): Whether to restrict the number of qubits to 7 or fewer.
         """
+        self.restriction = restrict
         self.n_qubits = len(bin(max(number_list))[2:])
         oracle_circuit = self.oracle(number_list).to_gate()
         super().__init__(self.n_qubits,self.n_qubits)
@@ -30,8 +41,16 @@ class Grover_Circuit(QuantumCircuit):
 
         self.measure(range(self.n_qubits),range(self.n_qubits))
 
+    def __repr__(self):
+        return f'Grover Circuit with {self.n_qubits} qubits'
 
-    def oracle(self, number_list:list, restriction = True) -> QuantumCircuit:
+    def __str__(self):
+        return f'Grover Circuit with {self.n_qubits} qubits'
+
+    def __len__(self):
+        return self.n_qubits
+
+    def oracle(self, number_list:list) -> QuantumCircuit:
         """Creates the oracle for the Grover's algorithm
 
         Args:
@@ -47,8 +66,10 @@ class Grover_Circuit(QuantumCircuit):
             QuantumCircuit: The oracle circuit
         """
         # determine number of bits to represent list
-        if self.n_qubits > 7 and restriction:
-            raise ValueError('We are restricted to 7 bits or fewer for this challenge.')
+        if self.n_qubits > 7 and self.restriction:
+            raise ValueError('We are restricted to 7 bits or fewer for this challenge.\
+                If you have access to more qubits, \
+                feel free to remove this restriction with retriction=False.')
         oracle = QuantumCircuit(self.n_qubits, name='oracle')
         u_omega = np.identity(2**self.n_qubits)
         for number in number_list:
