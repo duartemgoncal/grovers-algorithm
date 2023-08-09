@@ -2,10 +2,17 @@ from qiskit import *
 import numpy as np
 from qiskit.quantum_info import Statevector
 
-def reflection_gate(lucky_number, circuit):
-    lucky_bin = bin(lucky_number)[2:]
-    bits = len(lucky_bin)
-    reflection = QuantumCircuit(bits, name='reflection')
-    R = 2*np.outer(Statevector(circuit),Statevector(circuit)) - np.identity(2**bits)
-    reflection.unitary(R, range(bits), label='reflection')
-    return reflection.to_gate()
+def reflection(n_qubits:int, circuit:QuantumCircuit) -> QuantumCircuit:
+    """Creates the reflection circuit for the Grover's algorithm
+
+    Args:
+        n_qubits (int): the number of qubits in the circuit
+        circuit (QuantumCircuit): The circuit to be reflected (shoulf have the oracle applied to it)
+
+    Returns:
+        QuantumCircuit: The reflection circuit (also known as the diffusion operator)
+    """
+    reflection = QuantumCircuit(n_qubits, name='reflection')
+    R = 2*np.outer(Statevector(circuit),Statevector(circuit)) - np.identity(2**n_qubits)
+    reflection.unitary(R, range(n_qubits), label='reflection')
+    return reflection
