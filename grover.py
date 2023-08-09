@@ -25,13 +25,14 @@ class GroverCircuit(QuantumCircuit):
             cycles (int, optional): Number of Grover cycles (U_s*U_omega). Defaults to 1.
             restriction (bool, optional): Whether to restrict the number of qubits to 7 or fewer.
         """
+        self.number_list = number_list
         self.restriction = restrict
         self.n_qubits = len(bin(max(number_list))[2:])
-        oracle_circuit = self.oracle(number_list).to_gate()
+        oracle_circuit = self.oracle().to_gate()
         super().__init__(self.n_qubits,self.n_qubits)
         self.h(range(self.n_qubits))
         self.barrier()
-        reflection_circuit = self.reflection(self).to_gate()
+        reflection_circuit = self.reflection().to_gate()
 
         # START OF CYCLE - Repeat to increase probability of measuring the correct answer
         for _ in range(cycles):
@@ -50,13 +51,9 @@ class GroverCircuit(QuantumCircuit):
     def __len__(self):
         return self.n_qubits
 
-    def oracle(self, number_list:list) -> QuantumCircuit:
+    def oracle(self) -> QuantumCircuit:
         """Creates the oracle for the Grover's algorithm
-
-        Args:
-            number_list (list): The list of numbers the oracle should mark as -1
-            (analougous to a classical oracle giving True for the correct answer)
-
+        
         Raises:
             ValueError: If the number of bits required to represent the list is greater than 7,
             this is because the free plan on IBM Quantum only allows a maximum of 7 qubits,
@@ -72,24 +69,19 @@ class GroverCircuit(QuantumCircuit):
                 feel free to remove this restriction with retriction=False.')
         oracle = QuantumCircuit(self.n_qubits, name='oracle')
         u_omega = np.identity(2**self.n_qubits)
-        for number in number_list:
+        for number in self.number_list:
             u_omega[number,number] = -1
         oracle.unitary(u_omega, range(self.n_qubits),  label='oracle')
         return oracle
 
 
-    def reflection(self, circuit:QuantumCircuit) -> QuantumCircuit:
+    def reflection(self) -> QuantumCircuit:
         """Creates the reflection circuit for the Grover's algorithm
-
-        Args:
-            n_qubits (int): the number of qubits in the circuit
-            circuit (QuantumCircuit): The circuit to be reflected
-            (should have the oracle applied to it)
 
         Returns:
             QuantumCircuit: The reflection circuit (also known as the diffusion operator)
         """
         reflection = QuantumCircuit(self.n_qubits, name='reflection')
-        u_s = 2*np.outer(Statevector(circuit),Statevector(circuit)) - np.identity(2**self.n_qubits)
+        u_s = 2*np.outer(Statevector(self),Statevector(self)) - np.identity(2**self.n_qubits)
         reflection.unitary(u_s, range(self.n_qubits), label='reflection')
         return reflection
