@@ -2,9 +2,9 @@
   Grover's Algoithm
 </h1>
 
-
-<img style="display: block; margin-left: auto; margin-right: auto; border-style: solid; border-width: 8px" src="https://static.wikia.nocookie.net/muppet/images/e/e9/Grover2.jpg/revision/latest?cb=20190610143055" alt="drawing" width="500"/>
-
+<div style="text-align: center">
+<img src="https://static.wikia.nocookie.net/muppet/images/e/e9/Grover2.jpg/revision/latest?cb=20190610143055" alt="drawing" width="500"/>
+</div>
 <h4 align="center">Implementation of a general Grover's Algorithm for quamtum searching.</h4>
 
 <p align="center">
