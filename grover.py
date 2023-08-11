@@ -7,7 +7,7 @@ Date:
     2023-08-09
 """
 
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, transpile
 from qiskit.quantum_info import Statevector
 import numpy as np
 
@@ -39,8 +39,6 @@ class GroverCircuit(QuantumCircuit):
             self.append(oracle_circuit, range(self.n_qubits))
             self.append(reflection_circuit, range(self.n_qubits))
         #END OF CYCLE
-
-        self.measure(range(self.n_qubits),range(self.n_qubits))
 
     def __repr__(self):
         return f'Grover Circuit with {self.n_qubits} qubits'
@@ -82,6 +80,6 @@ class GroverCircuit(QuantumCircuit):
             QuantumCircuit: The reflection circuit (also known as the diffusion operator)
         """
         reflection = QuantumCircuit(self.n_qubits, name='reflection')
-        u_s = 2*np.outer(Statevector(self),np.conj(Statevector(self))) - np.identity(2**self.n_qubits)
+        u_s = 2*np.outer(Statevector(self).data,np.conj(Statevector(self).data)) - np.identity(2**self.n_qubits)
         reflection.unitary(u_s, range(self.n_qubits), label='reflection')
         return reflection
