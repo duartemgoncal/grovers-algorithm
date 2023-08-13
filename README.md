@@ -51,6 +51,6 @@ MIT
 
 ---
 
-> GitHub [@DuarteMGoncal](https://github.com/DuarteMGoncal) &nbsp;&middot;&nbsp;
-> Twitter [@DuarteMGoncal](https://twitter.com/DuarteMGoncal)
+> GitHub [@duartemgoncal](https://github.com/duartemgoncal) &nbsp;&middot;&nbsp;
+> Twitter [@duartemgoncal](https://twitter.com/duartemgoncal)
 
